@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-15 17:08+0000\n"
-"PO-Revision-Date: 2023-11-15 17:08+0000\n"
+"POT-Creation-Date: 2024-01-02 16:50+0000\n"
+"PO-Revision-Date: 2024-01-02 16:50+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,19 +16,24 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: fleet_payment
+#: model:ir.actions.report,print_report_name:fleet_payment.report_vehicle_log_services
+msgid "Report Service"
+msgstr "Reporte de Servicio"
+
+#. module: fleet_payment
 #: model_terms:ir.ui.view,arch_db:fleet_payment.report_custom_template
-msgid "<b>Method Payment:</b>"
-msgstr "<b>Metodo de Pago:</b>"
+msgid "<b>Method Payment</b>"
+msgstr "<b>Metodo de Pago</b>"
+
+#. module: fleet_payment
+#: model_terms:ir.ui.view,arch_db:fleet_payment.report_custom_template
+msgid "<span style=\"font-weight: bold; font-size: 12px;\">Total:</span>"
+msgstr ""
 
 #. module: fleet_payment
 #: model:ir.model.fields,field_description:fleet_payment.field_fleet_method_payment__account_number
 msgid "Account Number"
 msgstr "Numero de Cuenta"
-
-#. module: fleet_payment
-#: model:ir.model.fields,field_description:fleet_payment.field_fleet_method_payment__account_type
-msgid "Account Type"
-msgstr "Tipo de Cuenta"
 
 #. module: fleet_payment
 #: model:ir.model.fields,field_description:fleet_payment.field_fleet_method_payment__message_needaction
@@ -71,7 +76,7 @@ msgid "Attachment Count"
 msgstr ""
 
 #. module: fleet_payment
-#: model:ir.model.fields,field_description:fleet_payment.field_fleet_method_payment__bank_id
+#: model:ir.model.fields,field_description:fleet_payment.field_fleet_method_payment__bank
 msgid "Bank"
 msgstr "Banco"
 
@@ -93,10 +98,8 @@ msgid "Cancelled"
 msgstr "Cancelado"
 
 #. module: fleet_payment
-#: model:ir.model.fields,help:fleet_payment.field_fleet_method_payment__account_type
-msgid ""
-"Choose if the type of account is a card, it can be a debit or credit type "
-"and if it is a savings or checking account."
+#: model_terms:ir.ui.view,arch_db:fleet_payment.report_custom_template
+msgid "Card number:"
 msgstr ""
 
 #. module: fleet_payment
@@ -117,16 +120,6 @@ msgstr ""
 #. module: fleet_payment
 #: model:ir.model.fields,field_description:fleet_payment.field_fleet_method_payment__create_date
 msgid "Created on"
-msgstr ""
-
-#. module: fleet_payment
-#: model:ir.model.fields.selection,name:fleet_payment.selection__fleet_method_payment__account_type__current
-msgid "Cuenta Corriente"
-msgstr ""
-
-#. module: fleet_payment
-#: model:ir.model.fields.selection,name:fleet_payment.selection__fleet_method_payment__account_type__savings
-msgid "Cuenta de Ahorro"
 msgstr ""
 
 #. module: fleet_payment
@@ -173,6 +166,12 @@ msgstr "Enc. Division de Transportación"
 #: model:ir.model.fields,help:fleet_payment.field_fleet_method_payment__cutoff_date
 msgid "Enter the day of the month (1-31)"
 msgstr "Introduzca el día del mes (1-31)"
+
+#. module: fleet_payment
+#: code:addons/fleet_payment/models/fleet_method_payment.py:0
+#, python-format
+msgid "Error. Date format must be MM/YYYY"
+msgstr ""
 
 #. module: fleet_payment
 #: model:ir.model.fields.selection,name:fleet_payment.selection__fleet_method_payment__state__expired
@@ -222,6 +221,7 @@ msgstr ""
 
 #. module: fleet_payment
 #: model:ir.model.fields,help:fleet_payment.field_fleet_method_payment__message_has_error
+#: model:ir.model.fields,help:fleet_payment.field_fleet_method_payment__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr ""
 
@@ -229,6 +229,16 @@ msgstr ""
 #: model:ir.model.fields,field_description:fleet_payment.field_fleet_method_payment__message_is_follower
 msgid "Is Follower"
 msgstr ""
+
+#. module: fleet_payment
+#: model:ir.model.fields,field_description:fleet_payment.field_fleet_method_payment__journal_id
+msgid "Journal"
+msgstr "Diario"
+
+#. module: fleet_payment
+#: model_terms:ir.ui.view,arch_db:fleet_payment.fleet_method_payment_form
+msgid "Journal Payment"
+msgstr "Diario de Pago"
 
 #. module: fleet_payment
 #: model:ir.model.fields,field_description:fleet_payment.field_fleet_method_payment____last_update
@@ -293,19 +303,6 @@ msgid "My Activity Deadline"
 msgstr ""
 
 #. module: fleet_payment
-#: model:ir.model.fields,field_description:fleet_payment.field_fleet_vehicle_log_services__ncf
-#: model_terms:ir.ui.view,arch_db:fleet_payment.report_custom_template
-#: model_terms:ir.ui.view,arch_db:fleet_payment.view_fleet_vehicle_log_services_form_inherit
-#: model_terms:ir.ui.view,arch_db:fleet_payment.view_fleet_vehicle_log_services_tree_inherit
-msgid "NCF"
-msgstr ""
-
-#. module: fleet_payment
-#: model:ir.model.fields,field_description:fleet_payment.field_fleet_method_payment__name
-msgid "Name"
-msgstr "Nombre"
-
-#. module: fleet_payment
 #: model:ir.model.fields.selection,name:fleet_payment.selection__fleet_method_payment__state__new
 msgid "New"
 msgstr "Nuevo"
@@ -351,6 +348,16 @@ msgid "Number of unread messages"
 msgstr ""
 
 #. module: fleet_payment
+#: model_terms:ir.ui.view,arch_db:fleet_payment.fleet_method_payment_form
+msgid "Parameters"
+msgstr "Parametros"
+
+#. module: fleet_payment
+#: model:ir.model.fields,field_description:fleet_payment.field_fleet_method_payment__payment_form
+msgid "Payment Form"
+msgstr "Forma de Pago"
+
+#. module: fleet_payment
 #: model:ir.model.fields,field_description:fleet_payment.field_fleet_vehicle_log_services__license_plate
 msgid "Plate"
 msgstr "Placa"
@@ -366,10 +373,17 @@ msgid "Record Method Payment"
 msgstr "Registro Metodo de Pago"
 
 #. module: fleet_payment
+#: model:ir.model.fields,field_description:fleet_payment.field_fleet_vehicle_log_services__ref
+#: model_terms:ir.ui.view,arch_db:fleet_payment.report_custom_template
+#: model_terms:ir.ui.view,arch_db:fleet_payment.view_fleet_vehicle_log_services_form_inherit
+#: model_terms:ir.ui.view,arch_db:fleet_payment.view_fleet_vehicle_log_services_tree_inherit
+msgid "Reference"
+msgstr "Referencia"
+
+#. module: fleet_payment
 #: model:ir.actions.report,name:fleet_payment.report_vehicle_log_services
-#: model:ir.actions.report,print_report_name:fleet_payment.report_vehicle_log_services
 msgid "Report Services"
-msgstr "Reporte de Servicios"
+msgstr "Reporte de Servicio"
 
 #. module: fleet_payment
 #: model:ir.model.fields,field_description:fleet_payment.field_fleet_method_payment__activity_user_id
@@ -382,9 +396,23 @@ msgid "Reviewed by:"
 msgstr "Revisado por:"
 
 #. module: fleet_payment
+#: model:ir.model.fields,field_description:fleet_payment.field_fleet_method_payment__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: fleet_payment
 #: model_terms:ir.ui.view,arch_db:fleet_payment.report_custom_template
 msgid "Secretary General Services"
 msgstr "Secretaria Servicios Generales"
+
+#. module: fleet_payment
+#: model:ir.model.fields,help:fleet_payment.field_fleet_method_payment__account_type
+msgid ""
+"Select 'Sale' for customer invoices journals.\n"
+"Select 'Purchase' for vendor bills journals.\n"
+"Select 'Cash' or 'Bank' for journals that are used in customer or vendor payments.\n"
+"Select 'General' for miscellaneous operations journals."
+msgstr ""
 
 #. module: fleet_payment
 #: model:ir.model.fields,help:fleet_payment.field_fleet_vehicle_log_services__method_payment_id
@@ -411,24 +439,16 @@ msgid ""
 msgstr ""
 
 #. module: fleet_payment
-#: model:ir.model.fields.selection,name:fleet_payment.selection__fleet_method_payment__account_type__credit
-msgid "Tarjeta de Credito"
-msgstr ""
-
-#. module: fleet_payment
-#: model:ir.model.fields.selection,name:fleet_payment.selection__fleet_method_payment__account_type__debit
-msgid "Tarjeta de Debito"
-msgstr ""
-
-#. module: fleet_payment
+#: code:addons/fleet_payment/models/fleet_method_payment.py:0
 #: model:ir.model.constraint,message:fleet_payment.constraint_fleet_method_payment_number_uniq
+#, python-format
 msgid "This account number already exists!"
 msgstr "¡Este número de cuenta ya existe!"
 
 #. module: fleet_payment
-#: model_terms:ir.ui.view,arch_db:fleet_payment.report_custom_template
-msgid "Total:"
-msgstr ""
+#: model:ir.model.fields,field_description:fleet_payment.field_fleet_method_payment__account_type
+msgid "Type"
+msgstr "Tipo"
 
 #. module: fleet_payment
 #: model:ir.model.fields,help:fleet_payment.field_fleet_method_payment__activity_exception_decoration
@@ -449,6 +469,16 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:fleet_payment.fleet_method_payment_form
 msgid "Validate"
 msgstr "Validar"
+
+#. module: fleet_payment
+#: model:ir.model.fields,field_description:fleet_payment.field_fleet_method_payment__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: fleet_payment
+#: model:ir.model.fields,help:fleet_payment.field_fleet_method_payment__website_message_ids
+msgid "Website communication history"
+msgstr ""
 
 #. module: fleet_payment
 #: model_terms:ir.ui.view,arch_db:fleet_payment.report_custom_template

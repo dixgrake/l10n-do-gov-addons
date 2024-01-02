@@ -11,6 +11,7 @@ class FleetVehicleLogServices(models.Model):
     method_payment_id = fields.Many2one(
         'fleet.method.payment',
         string='Method Payment',
+        domain=[('state', '=', 'active')],
         help='Select the payment method'
         )
-    ncf = fields.Char(string='NCF')
+    ref = fields.Char(string='Reference')

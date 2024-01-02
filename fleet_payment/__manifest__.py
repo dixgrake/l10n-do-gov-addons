@@ -11,8 +11,8 @@
     'author': "Estarling Polanco",
     'website': "",
     'category': 'Fleet/Management',
-    'version': '15.0.0.1.1',
-    'depends': ['base','fleet'],
+    'version': '15.0.0.1.2',
+    'depends': ['base','fleet','l10n_do_accounting'],
     'data': [
         'security/ir.model.access.csv',
         'views/method_payment.xml',
