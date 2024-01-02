@@ -12,22 +12,15 @@ class FleetMethodPayment(models.Model):
         
         _sql_constraints = [('number_uniq', 'unique (account_number)', 'This account number already exists!')]
 
-        ACCOUNT_TYPE_SELECTION = [
-        ('credit', 'Tarjeta de Credito'),
-        ('debit', 'Tarjeta de Debito'),
-        ('current', 'Cuenta Corriente'),
-        ('savings', 'Cuenta de Ahorro')
-    ]
-
-        name = fields.Char(string='Name', translate=True, compute='_compute_name', store=True)
-        account_type = fields.Selection(ACCOUNT_TYPE_SELECTION, 
-                                        'Account Type', 
-                                        required=True, 
-                                        tracking=True, 
-                                        help='Choose if the type of account is a card, it can be a debit or credit type and if it is a savings or checking account.'
-                                        )
-        account_number = fields.Char(string='Account Number', required=True, tracking=True)
-        bank_id = fields.Many2one('res.bank', string='Bank')
+        journal_id = fields.Many2one(
+                'account.journal', 
+                string='Journal', 
+                domain="[('type', '=', 'bank'), ('l10n_do_payment_form', '=', 'card')]"
+        )
+        account_type = fields.Selection(string='Type', related='journal_id.type', readonly=True)
+        payment_form = fields.Selection(string='Payment Form', related='journal_id.l10n_do_payment_form', readonly=True)
+        account_number = fields.Char(string='Account Number', related='journal_id.bank_account_id.acc_number', readonly=True, store=True)
+        bank = fields.Char(string='Bank', related='journal_id.bank_id.name', readonly=True)
         cutoff_date = fields.Integer('Cutting day', required=True, tracking=True, help='Enter the day of the month (1-31)')
         due_date = fields.Char(string='Due Date', required=True, tracking=True)
         state = fields.Selection([
@@ -42,29 +35,30 @@ class FleetMethodPayment(models.Model):
 
         def action_set_cancel(self):
                 self.write({'state': 'cancel'})
+        
+        def name_get(self):
+                result = []
 
-        @api.onchange('account_type')
-        def _onchange_account_type(self):
-                if self.account_type in ['credit', 'debit','current','savings'] and not self.account_number:
-                        raise ValidationError("The account number cannot be empty.")
+                for acc in self:                   
+                        journal = acc.journal_id
+                        payment_form_selection = dict(journal.fields_get(allfields=['l10n_do_payment_form'])['l10n_do_payment_form']['selection'])
+                        payment_form_label = payment_form_selection.get(acc.payment_form, acc.payment_form)
 
-        @api.depends('account_number', 'account_type')
-        def _compute_name(self):
-                for record in self:
-                        if record.account_type in ['credit', 'debit']:
-                                last_six_digits = record.account_number[-6:] if record.account_number else ''
-                                account_type_label = dict(self._fields['account_type'].selection).get(record.account_type)
-                                record.name = f"{account_type_label} - {last_six_digits}"
-                        elif record.account_type in ['current', 'savings']:
-                                record.name = record.account_number                               
-                        else:
-                                record.name = record.account_number
+                        account_number_short = acc.account_number[-6:] if acc.account_number else 'XXXXXX'
 
-        @api.constrains('account_number', 'account_type')
-        def _check_account_number_length(self):
-                for record in self:
-                        if record.account_type in ['credit', 'debit'] and len(record.account_number) !=16:
-                                raise ValidationError('For credit and debit cards, the account number must be 16 characters long.')
+                        name = '{} - {}'.format(payment_form_label, account_number_short) if acc.payment_form else 'No Payment Form - {}'.format(account_number_short)
+                        result.append((acc.id, name))
+
+                return result
+        
+        @api.model
+        def create(self, vals):
+                try:
+                        return super(FleetMethodPayment, self).create(vals)
+                except ValidationError as e:
+                        if "number_uniq" in e.name:
+                                raise ValidationError(_("This account number already exists!"))
+                        raise e
 
         @api.constrains('due_date')
         def _check_due_date_format(self):

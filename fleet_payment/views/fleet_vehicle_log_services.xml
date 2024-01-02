@@ -11,7 +11,7 @@
                     <field name="brand" string="Brand"/>
                     <field name="model" string="Model"/>
                     <field name="method_payment_id" string="Method Payment"/>
-                    <field name="ncf" string="NCF"/>
+                    <field name="ref" string="Reference"/>
                 </field>
             </field>
         </record>
@@ -21,7 +21,7 @@
             <field name="inherit_id" ref="fleet.fleet_vehicle_log_services_view_form"/>
             <field name="arch" type="xml">
                 <field name="vendor_id" position="after">
-                    <field name="ncf" string="NCF"/>
+                    <field name="ref" string="Reference"/>
                     <field name="method_payment_id" string="Method Payment"/>                  
                 </field>
             </field>
